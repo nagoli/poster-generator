@@ -46,6 +46,7 @@ def make_poster_pdf(image_file, output_pdf, horizontal_tile_nb=2, format="A4", o
         img = reportlab.graphics.renderPM.drawToPIL(drawing,  dpi=300*horizontal_tile_nb)
     elif image_file.endswith(".jpg") or image_file.endswith(".jpeg")  or image_file.endswith(".png") or image_file.endswith(".tiff") or image_file.endswith(".tif") or image_file.endswith(".bmp") or image_file.endswith(".gif") :
         img = Image.open(image_file)
+        img = img.convert('RGB')  
     else : 
         raise ValueError(f"Unknown image format: {image_file}")
 
