@@ -2,7 +2,7 @@
 
 Poster Generator is a Python-based command-line tool that allows you to create large, multi-page posters from standard-sized paper formats like A4 or letter. It's designed to split a single image across multiple pages, which can be easily printed on personal printers, and then assembled into a large poster.
 
-![Illustration](illustration-long.jpg)
+![Illustration](illustration-banner.png)
 
 ## Features
 
