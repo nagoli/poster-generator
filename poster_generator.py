@@ -89,6 +89,7 @@ def make_poster_pdf(image_file, output_pdf, horizontal_tile_nb=2, format="A4", o
             crop_img = img.crop((left, upper, right, lower))
 
             # Save cropped image temporarily
+            #os.makedirs("tmp", exist_ok=True)
             temp_img_path = f"temp_{i}_{j}.jpg"
             crop_img.save(temp_img_path, 'JPEG')
 
@@ -106,19 +107,40 @@ def make_poster_pdf(image_file, output_pdf, horizontal_tile_nb=2, format="A4", o
             # draw corners guide and numbering
             c.line(0,margin,margin,margin)
             c.line(margin,0,margin,margin)
-            c.drawString(margin-20,margin-20,f"{i},{j}")
             c.line(0,page_size[1]-margin,margin,page_size[1]-margin)
             c.line(margin,page_size[1],margin, page_size[1]-margin)
-            c.drawString(margin-20,page_size[1]-margin+10,f"{i},{j}")
             c.line(page_size[0]-margin,0,page_size[0]-margin,margin)
             c.line(page_size[0],margin,page_size[0]-margin,margin)
-            c.drawString(page_size[0]-margin+10,margin-20,f"{i},{j}")
             c.line(page_size[0],page_size[1]-margin,page_size[0]-margin,page_size[1]-margin)
             c.line(page_size[0]-margin,page_size[1],page_size[0]-margin,page_size[1]-margin)
-            c.drawString(page_size[0]-margin+10,page_size[1]-margin+10,f"{i},{j}")
+            
+            #add legend text in the corner 
+            c.setFont("Courier", 14)
+            c.setFillColor('black')
+            legend = f"{j+1},{i+1}"
+            left_padding=margin-30
+            top_padding=page_size[1]-margin+7
+            bottom_padding=margin-14
+            right_padding=page_size[0]-margin+5
+            c.drawString(left_padding,bottom_padding,legend)
+            c.drawString(left_padding,top_padding,legend)
+            c.drawString(right_padding,bottom_padding,legend)
+            c.drawString(right_padding,top_padding,legend)
+            
+            
+            c.setFont("Courier", 10)
+            c.setFillColor('grey')
+            legend = f"({v_tile_nb},{h_tile_nb})"
+            h_shift = 2
+            v_shift = 14
+            c.drawString(left_padding-h_shift,bottom_padding-v_shift,legend)
+            c.drawString(left_padding-h_shift,top_padding+v_shift+2,legend)
+            c.drawString(right_padding-h_shift,bottom_padding-v_shift,legend)
+            c.drawString(right_padding-h_shift,top_padding+v_shift+2,legend)
             
             #draw cut lines
-            c.setStrokeColor('lightgrey')
+            
+            
             c.line(margin, 0, margin, page_size[1])
             c.line(0, margin, page_size[0], margin)
             c.line(page_size[0]-margin, 0, page_size[0]-margin, page_size[1])
